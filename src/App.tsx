@@ -1,26 +1,43 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Routes, Route, Link, Outlet } from "react-router-dom";
+
+import NoMatch from "./pages/NoMatch";
+import PostOfficeList from "./pages/PostOfficeList";
+import Tracking from "./pages/Tracking";
+
+import "./App.css";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Tracking />} />
+          <Route path="office-list" element={<PostOfficeList />} />
+          <Route path="*" element={<NoMatch />} />
+        </Route>
+      </Routes>
     </div>
   );
 }
 
 export default App;
+
+function Layout() {
+  return (
+    <div>
+      <nav>
+        <ul>
+          <li>
+            <Link to="/">Перевірити ТТН</Link>
+          </li>
+          <li>
+            <Link to="/office-list">Список відділень</Link>
+          </li>
+        </ul>
+      </nav>
+
+      <hr />
+      <Outlet />
+    </div>
+  );
+}
