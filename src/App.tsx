@@ -1,26 +1,51 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Routes, Route, Link, Outlet } from "react-router-dom";
+import Tab from "@mui/material/Tab";
+
+import NoMatch from "./pages/NoMatch";
+import PostOfficeList from "./pages/PostOfficeList";
+import Tracking from "./pages/Tracking";
+import { RouteNames } from "./enums/routes";
+
+import "./App.css";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Routes>
+        <Route path={RouteNames.Home} element={<Layout />}>
+          <Route index element={<Tracking />} />
+          <Route path={RouteNames.OfficeList} element={<PostOfficeList />} />
+          <Route path="*" element={<NoMatch />} />
+        </Route>
+      </Routes>
     </div>
   );
 }
 
 export default App;
+
+function Layout() {
+  return (
+    <div style={{ width: "100%" }}>
+      <nav className="navigation_container">
+        <Tab
+          label="Перевірити ТТН"
+          to={RouteNames.Home}
+          component={Link}
+          sx={{
+            border: 1,
+            borderColor: "grey.500",
+            borderRadius: 1,
+          }}
+        />
+        <Tab
+          label="Список відділень"
+          to={`/${RouteNames.OfficeList}`}
+          component={Link}
+          sx={{ border: 1, borderColor: "grey.500", borderRadius: 1 }}
+        />
+      </nav>
+      <Outlet />
+    </div>
+  );
+}
