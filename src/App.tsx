@@ -26,12 +26,25 @@ export default App;
 
 function Layout() {
   return (
-    <div>
-      <nav>
-        <Tab label="Перевірити ТТН" to={RouteNames.Home} component={Link} />
-        <Tab label="Список відділень" to={`/${RouteNames.OfficeList}`} component={Link} />
+    <div style={{ width: "100%" }}>
+      <nav className="navigation_container">
+        <Tab
+          label="Перевірити ТТН"
+          to={RouteNames.Home}
+          component={Link}
+          sx={{
+            border: 1,
+            borderColor: "grey.500",
+            borderRadius: 1,
+          }}
+        />
+        <Tab
+          label="Список відділень"
+          to={`/${RouteNames.OfficeList}`}
+          component={Link}
+          sx={{ border: 1, borderColor: "grey.500", borderRadius: 1 }}
+        />
       </nav>
-      <hr />
       <Outlet />
     </div>
   );
